@@ -11,7 +11,7 @@ namespace TF.MultiBuilder.Editor
     {
         #region Main
         
-        [MenuItem("Tools/Multibuilder")]
+        [MenuItem("Tools/Multibuilder/Build")]
         public static void MultiBuildProcess()
         {
             MultiBuildSettings buildSettings = MultiBuildSettings.GetOrCreate();
@@ -25,6 +25,13 @@ namespace TF.MultiBuilder.Editor
             _initialProductName = PlayerSettings.productName;
             _outputMessage.Clear();
             ProcessThreads(buildSettings);
+        }
+
+        [MenuItem("Tools/Multibuilder/Show Settings")]
+        public static void PingSettings()
+        {
+            var settings = MultiBuildSettings.GetOrCreate();
+            EditorGUIUtility.PingObject(settings);
         }
 
         #endregion
@@ -47,9 +54,9 @@ namespace TF.MultiBuilder.Editor
                     continue;
                 }
 
-                if (string.IsNullOrWhiteSpace(thread.localBuildPath))
+                if (!Directory.Exists(thread.buildPath))
                 {
-                    Debug.LogWarning($"Thread n° <color=orange>{i}</color> has <color=orange>no build path</color>. This thread will be ignored", buildSettings);
+                    Debug.LogWarning($"Thread n° <color=orange>{i}</color> has <color=orange> invalid build path</color>. This thread will be ignored", buildSettings);
                     continue;
                 }
 
@@ -77,7 +84,7 @@ namespace TF.MultiBuilder.Editor
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             var scenesToBuild = settings.GetScenesPath(thread.scenesToBuild);
             buildPlayerOptions.scenes = scenesToBuild;
-            var buildPath = $"{thread.localBuildPath}/{thread.productName}";
+            var buildPath = $"{thread.buildPath}/{thread.productName}";
             buildPlayerOptions.locationPathName = buildPath;
             buildPlayerOptions.target = thread.buildTarget;
             buildPlayerOptions.options = thread.buildOptions;
@@ -90,10 +97,7 @@ namespace TF.MultiBuilder.Editor
             {
                 var buildTime = summary.totalTime.Milliseconds;
                 _totalBuildTime += buildTime;
-                var index = Application.dataPath.LastIndexOf("Assets");
-                var projectPath = Application.dataPath.Remove(index);
-                //this root is Asset => bad
-                _outputMessage.AppendLine($"Build succeeded: '<color=cyan>{projectPath}/{buildPath}</color>' built in {buildTime / 1000f : #0.##} seconds");
+                _outputMessage.AppendLine($"Build succeeded: '<color=cyan>{buildPath}</color>' built in {buildTime / 1000f : #0.##} seconds");
             }
 
             else if (summary.result == BuildResult.Failed)
