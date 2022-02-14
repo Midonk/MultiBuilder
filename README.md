@@ -1,6 +1,6 @@
 # Multi Builder
 
-**v0.1.0**
+**v0.1.1**
 
 
 ## Description
@@ -18,8 +18,8 @@ Simply modify your manifest.json file found at /PROJECTNAME/Packages/manifest.js
 {
 	"dependencies": {
 		...
-		"com.chaos-entertainment.multibuilder": "https://github.com/Midonk/MultiBuilder.git#release/stable",
-		"com.chaos-entertainment.tools": "https://github.com/Midonk/Tool-Bases.git#release/stable",
+		"com.chaos-entertainment.multibuilder": "https://github.com/Midonk/MultiBuilder.git",
+		"com.chaos-entertainment.tools": "https://github.com/Midonk/Tool-Bases.git",
 		...
 	}
 }

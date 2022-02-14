@@ -1,7 +1,7 @@
 {
     "name": "com.chaos-entertainment.multibuilder",
     "displayName": "Multi Builder",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "unity": "2020.3",
     "description": "A simple solution to build multiple players with a single click.",
     "keywords": [
