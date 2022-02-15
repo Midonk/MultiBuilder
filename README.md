@@ -29,12 +29,12 @@ Simply modify your manifest.json file found at /PROJECTNAME/Packages/manifest.js
 ## Quick start
 
 Once you installed the package, you should see a new *menu item* in ***Tools / Multibuilder***.
-You have to initialize the system by creating settings asset. To do so, just click on the new menu item.
+You have to initialize the system by creating settings asset. To do so, just click on the any new menu item.
 
 Now the settings asset is created, everything you need is to parametrize the settings to be able to build any number of players you'd like.
 
 Finally, to start the builds, you have the choice:
-- Use the same *menu item* as the one you initialized the settings with.
+- Use the *menu item* at ***Tools / Multibuilder / Build***.
 - Use the *Build threads* button visible in the *Multi Builder* settings.
 
 
